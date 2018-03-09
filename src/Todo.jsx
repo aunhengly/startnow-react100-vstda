@@ -22,7 +22,8 @@ class Todo extends Component {
             [name]: value,
         })
     }
-    handleBtnSave(index) {
+    handleBtnSave(e, index) {
+        e.preventDefault()
         this.props.handleBtnSave(this.state, index);
         this.setState({ isEditing: false })
         //console.log('It clicked on save', index);
@@ -34,13 +35,14 @@ class Todo extends Component {
         this.setState({ isEditing: !this.state.isEditing });
     }
     handleBtnDelete() {
-        this.props.deleteTodo(this.state)
+        console.log('deleting index: ', this.props.index)
+        this.props.deleteTodo(this.props.index)
     }
 
     render() {
         return (
 
-            <li className={`hengly success list-group-item list-group-item-${this.state.priority}`}>
+            <li className={`hengly success list-group-item list-group-item-${this.props.todo.priority}`}>
                 {this.state.isEditing ? (
                     <form onSubmit={e => e.preventDefault()}>
                         <div className="form-group">
@@ -58,7 +60,7 @@ class Todo extends Component {
                                 <option value="success">Low</option>
                             </select>
                         </div>
-                        <button className="btn btn-success btn-md update-todo" onClick={() => this.handleBtnSave(this.props.index)}>Save</button>
+                        <button className="btn btn-success btn-md update-todo" onClick={(e) => this.handleBtnSave(e, this.props.index)}>Save</button>
                     </form>
                 ) : (
                         <div className="eric">

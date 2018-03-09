@@ -26,18 +26,38 @@ class App extends Component {
   add() {
     var todolist = [...this.state.todolist];
     var { priority, description } = this.state;
-    todolist.push({ description, priority });
+    var newTodo = {
+      id: Date.now(),
+      priority,
+      description,
+      isEditing: false,
+      completed: false
+    };
+    
+    todolist.push(newTodo);
     this.setState({ todolist });
   }
+
+  // handleDeleteTodo(index){
+  //   //Use index and slice from this.state.todolist
+  //   var newList = [...this.state.todolist];
+  //   var newArr  = newList.map(key => key.id).indexOf(index.id);
+  //   newArr.splice(index, 1);
+  //   this.setState({todolist: newArr});
+  //   //console.log("AR is the terminator, DeleteToDo index", index);
+  // }
+
   handleDeleteTodo(index){
     //Use index and slice from this.state.todolist
     var newList = [...this.state.todolist];
-    // var newArr  = newList.map(key => key.id).indexOf(index.id);
-    newList.splice(index, 1);
-    console.log(newList)
+    console.log("index", index);
+    
+    newList = newList.filter(todo => todo.id !== index.id);
+
     this.setState({todolist: newList});
     //console.log("AR is the terminator, DeleteToDo index", index);
   }
+
   handleBtnSave(todo, index){
     var todolist = [...this.state.todolist];
     todolist[index] = todo;
@@ -92,11 +112,12 @@ class App extends Component {
                 {this.state.todolist.map((todo, index) => {
                   return (
                     <Todo
-                     key={todo.description + index} 
-                     todo={todo}
+                     key={index} 
+                     todo={todo} 
                      deleteTodo={this.handleDeleteTodo} 
                      index={index}
                      handleBtnSave={this.handleBtnSave} />
+                    
                   );
                 })}
               </div>
