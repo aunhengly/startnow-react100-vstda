@@ -22,7 +22,9 @@ describe('Very Simple To Do App', function main() {
   this.slow(4000);
 
   beforeEach(() => {
-    nightmare = new Nightmare();
+    nightmare = new Nightmare({
+      waitTimeout: 30000
+    });
     // nightmare = new Nightmare({
     //   openDevTools: {
     //     mode: 'detach'
