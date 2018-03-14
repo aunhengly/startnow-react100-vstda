@@ -1,8 +1,8 @@
 deployment:
-  prod:
+0  prod:
     branch: master
     heroku:
       appname: react100-vstda
 machine:
   node:
-    version: 8.5.0
+    version: 8.5.
